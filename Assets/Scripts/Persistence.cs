@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ public class Persistence : MonoBehaviour
     public static string BestScoreUserName;
 
     public TMP_InputField userNameInputField;
+    public TextMeshProUGUI bestScoreText;
     public static string currentUserName;
 
     public static Persistence Instance;
@@ -28,28 +30,8 @@ public class Persistence : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-      //  userNameInputField.onEndEdit.AddListener(UpdateUserName());
-
     }
 
-    //private UnityAction<string> UpdateUserName()
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public void GameOver()
-    //{
-    //    m_GameOver = true;
-    //    GameOverText.SetActive(true);
-
-    //    if (m_Points > highScore)
-    //    {
-    //        highScore = m_Points;
-
-    //    }
-
-    //    HighScoreText.text = "Best Score: Name:" + highScore;
-    //}
 
     public void StartNewScene()
     {
@@ -93,5 +75,17 @@ public class Persistence : MonoBehaviour
         currentUserName = userNameInputField.text;
 
         LoadUserData();
+        bestScoreText.text = "Best score by " + BestScoreUserName + " is " + bestScore;
+    }
+
+
+    public void Exit()
+    {
+
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit(); // original code to quit Unity player
+#endif
     }
 }
