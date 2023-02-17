@@ -84,6 +84,8 @@ public class MainManager : MonoBehaviour
         {
             Persistence.bestScore = m_Points;
             UpdateBestScore(Persistence.bestScore);
+            Persistence.BestScoreUserName = Persistence.currentUserName;
+            Persistence.SaveUserData();
 
         }
     }
@@ -91,6 +93,8 @@ public class MainManager : MonoBehaviour
     private void UpdateBestScore(int best)
     {
        // bestScoreValue = persistence.bestScore;
-        BestScoreText.text = "Best Score : Name : " + best;
+        BestScoreText.text = "Best Score by " + Persistence.BestScoreUserName +" is " + best;
     }
+
+  
 }
